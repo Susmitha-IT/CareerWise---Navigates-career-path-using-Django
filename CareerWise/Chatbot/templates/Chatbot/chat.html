@@ -1,0 +1,440 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Wise</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+  
+ 
+  background-color: #1d2d44; /* Semi-transparent black background */
+  box-shadow: 0 20px 20px rgba(0, 0, 0, 0.5);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    #chat-container {
+	
+      width: 800px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    #chat-messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 10px;
+      height: 600px;
+      overflow-y: scroll;
+    }
+
+    #input-container {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-top: 1px solid #ccc;
+    }
+
+    #name-input {
+      flex: 1;
+      margin-right: 10px;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #start-button {
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .user-message {
+      text-align:left; /* Align user messages to the right */
+     // background-color: #dcf8c6;
+  
+      margin: 5px 0;
+  padding: 12px 18px; /* Adjust padding as needed */
+  border-radius:5px;
+}
+    .bot-message {
+  text-align: left;
+  background-color: #ffffff;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 10px;
+  position: relative; /* Position the icon relative to the message */
+}
+
+.bot-message i {
+  position: absolute;
+  left: -10px; /* Adjust the position of the icon */
+  top: 20%; /* Align the icon vertically */
+  transform: translateY(-50%);
+  color: #007bff; /* Color of the icon */
+}
+
+    .bot-message span {
+  background-color: #eff1f3; /* Background color behind the text */
+  padding: 12px 18px; /* Adjust padding as needed */
+  border-radius: 5px;
+   line-height: 1.5; 
+   white-space: pre-line;
+  display: inline-block; /* Ensure span takes only as much width as needed */
+  max-width: 70%; /* Limit maximum width to prevent overlapping */
+  word-wrap: break-word; /* Allow text to wrap */
+}
+
+    .options {
+      display: flex;
+      justify-content: flex-end;
+	  padding:15px;
+    }
+
+    .options button {
+      margin-left: 5px;
+      margin-right: 5px;
+      padding: 6px 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .options button:first-child {
+      margin-left: auto; /* Pushes the "Go back" button to the left */
+    }
+
+    .options button:last-child {
+      margin-left: 0;
+    }
+    .float-icon {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #007bff; /* Blue color for the home button */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        z-index: 10;
+        text-decoration: none; /* To remove underline on hover */
+    }
+
+    .float-icon:hover {
+        background-color: #0056b3; /* Darker blue color on hover */
+    }
+    .float-icon i {
+        color: #fff;
+        font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="float-icon">
+        <i class="fa fa-home"></i>
+    </a>
+  <div id="chat-container">
+    <ul id="chat-messages"></ul>
+    <div id="input-container">
+      <input type="text" id="name-input" placeholder="Enter your name">
+      <button id="start-button">Start</button>
+    </div>
+  </div>
+  <script>
+    const chatbotImageUrl = "{% static 'chatbot.png' %}";
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const nameInput = document.getElementById('name-input');
+  const startButton = document.getElementById('start-button');
+  const chatMessages = document.getElementById('chat-messages');
+  const optionStack = [];
+
+  startButton.addEventListener('click', function() {
+    const name = nameInput.value.trim();
+    if (name === '') {
+      alert('Please enter your name.');
+      return;
+    }
+
+    showMessage(`Hey ${name} !!`, false);
+    showMessage('Welcome to Career Bot', false);
+    showMessage('Can we assist you?', true, [
+      { text: 'Yes', nextMessageId: 2 },
+      { text: 'No', nextMessageId: -1 }
+    ]);
+  });
+
+   function showMessage(message, isBotMessage = false, options = []) {
+  const li = document.createElement('li');
+  if (isBotMessage) {
+    li.classList.add('bot-message');
+    const messageContainer = document.createElement('div');
+    messageContainer.classList.add('message-container');
+    
+    const img = document.createElement('img');
+    const chatbotImageUrl = "{% static 'Chatbot/chatbot.png' %}";
+    img.src = chatbotImageUrl;
+    img.style.width = '30px'; 
+    img.style.height = 'auto'; 
+    messageContainer.appendChild(img);
+
+    // Add non-breaking space after the image
+    messageContainer.appendChild(document.createTextNode('\u00A0'));
+
+    const span = document.createElement('span');
+    span.textContent = message;
+    messageContainer.appendChild(span);
+    
+    li.appendChild(messageContainer);
+    
+    if (options.length > 0) {
+      const div = document.createElement('div');
+      div.classList.add('options');
+      options.forEach(option => {
+        const button = document.createElement('button');
+        button.textContent = option.text;
+        button.addEventListener('click', function() {
+          handleOptionClick(option);
+        });
+        div.appendChild(button);
+      });
+      li.appendChild(div);
+    }
+  } else {
+    const span1 = document.createElement('span');
+    span1.textContent = message;
+    li.classList.add('user-message');
+    span1.style.backgroundColor = '#cdedf6'; 
+    span1.style.padding='12px 18px';
+    span1.style.borderRadius = '5px';
+    li.appendChild(span1);
+  }
+  chatMessages.appendChild(li);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+  function handleOptionClick(option) {
+    switch (option.nextMessageId) {
+      case 2:
+        showMessage("After passing Class 10, many students face crucial questions: \n\nWhich stream should I choose?\nWhat are the courses available?\nWhat subjects to pick for Class 11 and 12?\n\n If you're stuck with these, you're in the right place. What are you looking for?", true, [
+          { text: 'Class 11 - Class 12', nextMessageId: 3 },
+          { text: 'Diploma Courses', nextMessageId: 4 },
+          { text: 'Polytechnic Courses', nextMessageId: 5 },
+		   { text: 'Paramedical Courses', nextMessageId: 6 },
+		    { text: 'ITI Courses', nextMessageId: 7 }
+		  
+        ]);
+        break;
+      case 3:
+        showMessage('Each stream offers unique opportunities and career paths, catering to different interests and aspirations. Understanding the options available and their potential benefits is crucial for making a well-informed decision.', true, [
+          { text: 'Science', nextMessageId: 8, description: 'The Science stream is a popular choice among students aspiring for careers in engineering, medicine, or pure sciences. Subjects like Physics, Chemistry, Mathematics, and Biology are integral parts of this stream, offering a foundation for courses in engineering, medicine, pharmacy, and pure sciences.\n\n Science Stream is one of the best choices that you can make from the list of best courses after 10th standard. It can be great for those who want to become Engineers, Doctor, Scientist, Pilot, Teacher, Professor, Chemist, Nurse, Loco Pilot and wants to join the Indian Navy, Indian Air Force, and many more.' },
+          { text: 'Arts', nextMessageId: 8, description: 'For students inclined towards literature, humanities, or creative fields like music, dance, or theatre, the Arts stream offers a diverse range of subjects such as History, Geography, Political Science, Sociology, and Psychology. This stream leads to careers in Bachelor of Arts, Bachelor of Fine Arts, Bachelor of Journalism and Mass Communication, and Bachelor of Social Work.\n\nArts is the best stream for the students who wish to become Teacher, Lawyer, Anchor, Professor and want to go in Politics. In Arts, you will have several subjects like History, Geography, English,  Psychology, Economics, Political Science, Sociology, Sanskrit, and Philosophy. ' },
+		  { text: 'Commerce', nextMessageId: 8, description: 'Ideal for those interested in finance, accounting, or business management, the Commerce stream includes subjects such as Economics, Business Studies, Accountancy, and Mathematics. Students opting for this stream can pursue careers in Chartered Accountancy, Company Secretaryship, Bachelor of Commerce, and Bachelor of Business Administration.\n\nCommerce Stream can be extremely great for those who wanted to become Chartered Account, Professor, Bank PO, Teacher,  Finance Manager, Bank Manager, Stock Broker, Marketing Manager, Economist, Cost Accountant, Accountant Executive, HR, and many more. Various Subjects in Commerce Stream include Business Studies,  Statics, Economics, Mathematics, English, Computer, Accountancy,  etc. ' },
+		  { text: 'Home Science', nextMessageId: 8, description: 'Another emerging option after the 10th is the Home Science stream, focusing on the management of home and family life. Subjects like nutrition, textiles, clothing, home management, and child development equip students with practical skills applicable to daily life.' },
+          { text: 'Go back', nextMessageId: 2 }
+        ]);
+        break;
+      case 4:
+  showMessage('Diploma courses are a great way for students to gain practical experience in different fields and explore their interests. These courses are typically shorter in duration and can help individuals determine which career path they want to pursue. Additionally, because they are shorter and more focused, they allow students to switch to another discipline if their interests change.', true, [
+    { text: 'Diploma Courses In Arts', nextMessageId: 9, description: 'Diploma in Hotel Management: Includes subjects related to hospitality management, event planning, and hotel operations.\n' +
+    'Diploma in Journalism: Focuses on media research, news reporting, content development, and journalistic skills.\n' +
+    'Diploma in Education: Covers educational psychology, curriculum development, and teaching methodologies.\n' +
+    'Diploma in Photography: Provides training in various aspects of photography including techniques, composition, and visual storytelling.\n' +
+    'Diploma in Psychology: Offers foundational knowledge in psychology and prepares for careers in counseling and social work.\n' +
+    'Diploma in Elementary Education: Equips with skills for teaching young children and includes practical classroom training.\n' +
+    'Diploma in Digital Marketing: Covers SEO, web analytics, and digital advertising strategies for online marketing.\n' +
+    'Diploma in Fine Arts: Explores various forms of visual arts such as painting, drawing, and sculpture.\n' +
+    'Diploma in English: Focuses on English language principles, writing, and communication skills.\n' +
+    'Diploma in Fashion Designing: Introduces fashion design principles, textile science, and merchandising techniques.\n' +
+    'Diploma in Mass Communication: Covers visual communication, journalism, and media production for careers in PR, journalism, and broadcasting.\n\n '+
+	'Explore more about diploma courses by consulting educators and researching on the internet for additional information.' },
+    { text: 'Diploma Courses In Commerce', nextMessageId: 9, description: 'Diploma in Banking: Covers banking principles and practices, financial accounting, banking laws and regulations, credit management, and risk management.\n' +
+    'Diploma in Risk and Insurance: Focuses on risk management principles, insurance fundamentals, insurance law and regulations, actuarial science, and underwriting practices.\n' +
+    'Advanced Diploma in Financial Accounting: Provides advanced knowledge in financial accounting, management accounting, financial reporting standards, taxation principles, and auditing and assurance.\n' +
+    'Diploma in e-Accounting Taxation: Includes training in accounting software (e.g., Tally, QuickBooks), taxation laws and regulations, Goods and Services Tax (GST), income tax, and electronic filing procedures.\n' +
+    'Diploma in Business Administration: Covers business management principles, marketing management, financial accounting, managerial economics, and business communication.\n\n '+
+	'Explore more about diploma courses by consulting educators and researching on the internet for additional information.' },
+    { text: 'Diploma Courses In Science', nextMessageId: 9, description: 'Diploma in Computer Application: Provides a solid understanding of computer foundations and programming.\n' +
+    'Diploma in IT: Covers applied mathematics, physics, chemistry, C programming, system analysis, digital electronics, and much more.\n' +
+    'Diploma in Food Production: Specialized training in the trade of food production, including culinary techniques and kitchen management.\n' +
+    'Certificate in Diesel Mechanics: Vocational course in vehicle engineering with a focus on diesel engine mechanics.\n' +
+    'Diploma in Dental Hygienist: Emphasizes preventative dentistry, oral hygiene, dental radiography, and periodontal therapy.\n' +
+    'Diploma in Electrical Engineering: Covers electricity utilization for various applications, including lighting, heating, and control systems.\n' +
+    'Diploma in Computer Science and Engineering: Teaches fundamentals of engineering procedures, programming, data structures, and computer-related disciplines.\n' +
+    'Diploma in Petroleum Engineering: Specialized knowledge of techniques and procedures followed in the gas or petroleum industry.\n' +
+    'Diploma in Hospital Assistance: Provides training for healthcare assistants in patient care and medical settings.\n' +
+    'Diploma in Rural Healthcare: Addresses rural health needs by teaching fundamentals of healthcare, first aid, and patient education.\n' +
+    'Diploma in Pathology Lab Technician: Introductory course teaching inspection, assessment, and identification of various disorders in medical laboratories.\n' +
+    'Diploma in Paramedic Nursing: Job-oriented medical training course for pursuing careers in the medical field.\n' +
+    'Diploma in ECG Technology: Foundation in medical fields such as anatomy, physiology, and electrocardiography.\n' +
+    'Diploma in X-Ray Technology: Teaches principles of radiography, patient care, and image interpretation.\n' +
+    'Diploma in Graphic Designing: Improves skills in visual communication, typography, and digital design software.\n' +
+    'Diploma in Web Development: Covers web design, HTML, CSS, and JavaScript for front-end development.\n' +
+    'Diploma in Web Designing: Focuses on UI/UX design, HTML, CSS, and web design principles.\n\n '+
+	'Explore more about diploma courses by consulting educators and researching on the internet for additional information.' },
+	{
+      text: 'Diploma Courses in Engineering',
+      nextMessageId: 9,
+      description:
+      'Information Technology: Involves the use of computers, software, and telecommunications for storing, retrieving, and transmitting data.\n' +
+      'Fabrication Engineering: Focuses on the production and assembly of components and structures using various fabrication processes.\n' +
+      'Biomedical Engineering: Integrates principles of engineering and biology to develop solutions for healthcare and medical applications.\n' +
+      'Production Engineering: Involves the planning, management, and optimization of manufacturing processes and systems.\n' +
+      'Marine Engineering: Deals with the design, construction, and maintenance of ships, boats, and offshore structures.\n' +
+      'Aerospace Engineering: Focuses on the design, development, and testing of aircraft, spacecraft, and related systems.\n' +
+      'Petroleum Engineering: Involves the exploration, extraction, and production of oil and gas resources.\n\n '+
+	'Explore more about diploma courses by consulting educators and researching on the internet for additional information.' },
+   
+    { text: 'Go Back', nextMessageId: 2 }
+  ]);
+  break;
+
+case 5:
+  showMessage(
+    'Polytechnic diploma courses offer specialized training in engineering disciplines with a focus on practical skills. They provide a shorter route to acquiring industry-relevant qualifications, catering to students seeking immediate entry into the workforce.',
+    true,
+    [
+      {
+        text: 'Polytechnic Courses List 1',
+        nextMessageId: 10,
+        description: 
+          'Diploma in Civil Engineering: Provides fundamental understanding and application of civil engineering principles, requiring proficiency in mathematics and science.\n' +
+          'Diploma in Mechanical Engineering: Focuses on material science, manufacturing, design, and maintenance of mechanical systems, offering industry-ready skills.\n' +
+          'Diploma in Instrumentation Engineering: Covers digital and analog electronics, mechanical principles, and electronic product design for automation and measurement.\n' +
+          'Diploma in Automobile Engineering: Offers in-depth knowledge of automotive engineering, including design, manufacturing, and safety aspects.\n' +
+          'Diploma in Electrical Engineering: Deals with electricity, power systems, circuits, and electromagnetism, providing training in various electrical applications.\n' +
+          'Diploma in Computer Science & Engineering: Covers programming, algorithms, computer networks, and web technologies, offering practical skills in computer science.\n\n '+
+	'Explore more about polytechnic diploma courses by consulting educators and researching on the internet for additional information.'
+      },
+      {
+        text: 'Polytechnic Courses List 2',
+        nextMessageId: 10,
+        description: 
+          'Diploma in Electronics & Communication Engineering: Focuses on electrical engineering concepts and electronic devices for designing and maintaining communication systems.\n' +
+          'Diploma in Garment Technology: Involves understanding manufacturing materials, innovative designs, and clothing production processes.\n' +
+          'Diploma in Aeronautical Engineering: Concerned with aircraft design, manufacturing, maintenance, and testing, catering to the aviation sector.\n' +
+          'Diploma in Metallurgical Engineering: Covers material science topics and properties of metals and alloys, essential for material engineering.\n' +
+          'Diploma in Biotechnology Engineering: Combines biology with technology for applications in agriculture, pharmaceuticals, and environmental conservation.\n' +
+          'Diploma in Chemical Engineering: Involves converting raw materials into products using principles of life and physical sciences, covering various chemical processes.\n\n '+
+	'Explore more about polytechnic diploma courses by consulting educators and researching on the internet for additional information.'
+      },
+      { text: 'Go back', nextMessageId: 2 }
+    ]
+  );
+  break;
+
+case 6:
+ showMessage(
+    'Paramedical courses provide specialized training in various healthcare disciplines to equip individuals with the skills needed to assist medical professionals in diagnosing, treating, and caring for patients. These courses are particularly beneficial for those interested in healthcare but may not wish to pursue traditional medical degrees.',
+    true,
+    [
+      {
+        text: 'Paramedical Courses List 1',
+        nextMessageId: 11,
+        description: 
+          'Diploma in Hospital Assistance: Provides training for healthcare assistants in patient care and medical settings.\n' +
+          'Diploma in Rural Healthcare: Addresses rural health needs by teaching fundamentals of healthcare, first aid, and patient education.\n' +
+          'Pathology Lab Technician: Introductory course teaching inspection, assessment, and identification of various disorders in medical laboratories.\n' +
+          'Diploma in Paramedic Nursing: Job-oriented medical training course for pursuing careers in the medical field.\n' +
+          'Diploma in Physiotherapy: Focuses on physical rehabilitation and therapeutic exercises for patients with injuries or disabilities.\n' +
+		  'Diploma in Ophthalmic Technology: Teaches diagnosis and treatment of eye disorders and assisting ophthalmologists.\n' +
+		  'Diploma in Radiography and Medical Imaging: Involves the use of medical imaging techniques for diagnosing and treating diseases.\n' +
+          'Diploma in X-Ray Technology: Teaches principles of radiography, patient care, and image interpretation.\n\n '+
+	'Explore more about Paramedical courses by consulting educators and researching on the internet for additional information.'
+      },
+      {
+        text: 'Paramedical Courses List 2',
+        nextMessageId: 11,
+        description: 
+          'Diploma in ECG Technology: Foundation in medical fields such as anatomy, physiology, and electrocardiography.\n' +
+          'Diploma in Radiology: Involves the study and application of medical imaging techniques for diagnosing and treating diseases.\n' +
+          'Diploma in Dental Mechanics: Provides training in the fabrication and maintenance of dental prosthetics and appliances.\n' +
+          'Diploma in Pharmacy: Covers pharmaceutical principles, drug dispensing, and patient counseling in pharmacy settings.\n' +
+          'Diploma in Operation Theatre Technology: Trains students in operation theatre procedures and management.\n' +
+		  'Diploma in Dialysis Technology: Trains individuals in dialysis procedures and patient care in dialysis units.\n' +
+		  'Diploma in Anesthesia Technology: Covers principles and practices of anesthesia administration and patient care.\n' +
+          'Diploma in Medical Laboratory Technology: Focuses on laboratory procedures and techniques for medical diagnosis and treatment.\n\n '+
+	'Explore more about Paramedical courses by consulting educators and researching on the internet for additional information.'
+      },
+      { text: 'Go back', nextMessageId: 2 }
+    ]
+  );
+  break;
+      case 7:
+	  showMessage(
+    'ITI courses, offered by Industrial Training Institutes, provide job-oriented training programs lasting one to two years. These trade-specific courses cover various fields such as engineering, science, arts, hair and skin care, dress designing, and jewelry making. \nITI programs aim to instill skills among students and prepare them for the workforce, making them highly employable. They are an excellent option for students interested in technical or non-technical careers after completing the 10th grade, offering certificate courses that are highly regarded in the job market.',
+    true,
+    [
+      {
+        text: 'ITI Engineering Courses',
+        nextMessageId: 11,
+        description: 
+          'ITI Engineering Courses are vocational training programs offered by Industrial Training Institutes (ITIs) that focus on technical skills development in various engineering fields. These courses equip students with practical knowledge and skills required to work in industries related to engineering and technology. \n\n' +
+          'Electrician Engineering: Provides training in electrical systems, circuits, and equipment installation and maintenance.\n' +
+          'Diesel Mechanic Engineering: Focuses on the repair and maintenance of diesel engines and associated components in vehicles and machinery.\n' +
+          'Turner Engineering: Teaches machining operations such as turning, shaping, and threading using lathes and other machine tools.\n' +
+          'Refrigeration Engineering: Covers the installation, repair, and maintenance of refrigeration and air conditioning systems.\n' +
+		  'Draughtsman (Mechanical) Engineering: Provides skills in technical drawing and drafting for mechanical components and structures.\n\n '+
+	'Explore more about ITI Engineering Courses by consulting educators and researching on the internet for additional information.'
+      },
+      {
+        text: 'ITI Non – Engineering Courses',
+        nextMessageId: 11,
+        description: 
+          'ITI Non-Engineering Courses are vocational training programs offered by Industrial Training Institutes (ITIs) that focus on non-technical skills development in various fields other than engineering. These courses provide training in areas such as arts, crafts, and service industries. \n\n' +
+          'Dress Making: Teaches skills in sewing, pattern making, and garment construction for designing and tailoring clothing.\n' +
+          'Secretarial Practice: Provides training in office administration, document management, and secretarial duties.\n' +
+          'Fruit and Vegetable Processing: Covers techniques for processing and preserving fruits and vegetables to maintain quality and extend shelf life.\n' +
+          'Commercial Art: Focuses on artistic skills development for creating illustrations, graphics, and designs for commercial purposes.\n' +
+          'Hand Compositor: Provides training in typesetting and layout for traditional printing processes using letterpress machines.\n\n '+
+	'Explore more about ITI Non – Engineering Courses by consulting educators and researching on the internet for additional information.'
+      },
+      { text: 'Go back', nextMessageId: 2 }
+    ]
+  );
+  break;
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+        showMessage(option.description, true, [{ text: 'Go back', nextMessageId: optionStack.pop() }]);
+        break;
+      case -1:
+        showMessage('Thank you');
+        break;
+      default:
+        showMessage('Invalid option');
+    }
+
+    optionStack.push(option.nextMessageId);
+  }
+});
+  </script>
+</body>
+</html>

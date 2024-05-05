@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Wise</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            background-color: #333;
+            font-family: 'Montserrat', sans-serif;
+            color: #ddd;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            background-color: #555;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            margin-top: 10%;
+            animation: fadeIn 1s;
+            position: relative;
+            z-index: 1;
+        }
+
+        h1, p {
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            color: #ffcc00;
+        }
+
+        p {
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            padding: 15px 30px;
+            font-size: 24px;
+            background-color: #21bf73;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideUp 1s ease forwards, fadeInUp 1s ease forwards;
+        }
+
+        button:hover {
+            background-color: #28a745;
+        }
+
+        .paper {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff6384; /* Pink color for the paper */
+            animation: shower 2s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .float-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #007bff; /* Blue color for the home button */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            z-index: 10;
+            text-decoration: none; /* To remove underline on hover */
+        }
+
+        .float-icon:hover {
+            background-color: #0056b3; /* Darker blue color on hover */
+        }
+
+        .float-icon i {
+            color: #fff;
+            font-size: 24px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shower {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh);
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="float-icon">
+        <i class="fa fa-home"></i>
+    </a>
+    <div class="container">
+        <h1>Welcome to the Career Wise Quiz!</h1>
+        <p>Are you ready to test your knowledge and discover your career path?</p>
+        <button onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <!-- Continuous Paper Shower Effect -->
+    <script>
+        // Function to create and animate color papers
+        function createPaper() {
+            const paper = document.createElement('div');
+            paper.classList.add('paper');
+            document.body.appendChild(paper);
+
+            // Randomize the position, size, and animation duration
+            const positionX = Math.random() * window.innerWidth;
+            const size = Math.random() * 10 + 5; // Random size between 5px and 15px
+            const duration = Math.random() * 2 + 1;
+
+            paper.style.left = `${positionX}px`;
+            paper.style.width = `${size}px`;
+            paper.style.height = `${size}px`;
+            paper.style.animationDuration = `${duration}s`;
+
+            // Remove the paper element after the animation ends
+            paper.addEventListener('animationend', () => {
+                paper.remove();
+            });
+        }
+
+        // Create paper periodically for continuous showering effect
+        setInterval(createPaper, 200);
+    </script>
+
+    <!-- Bootstrap and jQuery Scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function startQuiz() {
+            // Redirect to the quiz page
+            window.location.href = "{% url 'questionnaire' %}"; // Replace this with the path to your quiz page
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Ratings</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      body {
+        font-family: 'Roboto', Helvetica;
+        color: #333;
+        font-weight: 300;
+        background-color: #f8f9fa;
+      }
+      .container {
+        margin-top: 3em;
+        padding: 10px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      
+      }
+      .rating, .histo {
+        padding: 15px;
+      }
+      .rating {
+        text-align: center;
+      }
+      .rating-num {
+        font-size: 72px;
+        font-weight: 100;
+        line-height: 1em; 
+        margin-bottom: 10px;
+      }
+      .rating-stars .fas {
+        font-size: 36px; /* Increased font size for stars */
+        color: #FFD700; /* Yellow */
+      }
+      
+      .rating-users {
+        font-size: 14px;
+      }
+      .histo {
+        font-size: 13px;
+      }
+      .histo-star {
+        padding: 3px;
+      }
+      /* CSS */
+      .star-filled {
+        color: #FFD700; /* Set filled star color to yellow */
+      }
+
+      .star-empty {
+        color: #ced4da; /* Set empty star color */
+      }
+
+      .histo-star span {
+        margin-right: 5px; /* Adjust spacing between stars and numbers */
+      }
+      
+.float-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #007bff; /* Blue color for the home button */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+  text-decoration: none; /* To remove underline on hover */
+}
+
+.float-icon:hover {
+  background-color: #0056b3; /* Darker blue color on hover */
+}
+
+.float-icon i {
+  color: #fff;
+  font-size: 24px;
+}
+.animated-button {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #8ecae6;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.animated-button:hover {background-color: #023e8a}
+
+.animated-button:active {
+  background-color: #023e8a;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+    </style>
+</head>
+<body>
+  {% if user.is_authenticated %}
+  <a href="{% url 'home' %}" class="float-icon">
+      <i class="fa fa-home"></i>
+  </a>
+  {% else %}
+  <a href="{% url 'index' %}" class="float-icon">
+      <i class="fa fa-home"></i>
+  </a>
+  {% endif %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 rating">
+            <!-- Calculate average rating -->
+            {% if total_ratings %}
+                <span class="rating-num">{{ average_rating|floatformat:"1" }}</span>
+                <div class="rating-stars">
+                    {% for star_value in "12345" %}
+                        {% if star_value|add:"-1" < average_rating %}
+                            <span><i class="fas fa-star"></i></span>
+                        {% else %}
+                            <span><i class="far fa-star"></i></span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="rating-users">
+                    <i class="fas fa-user"></i> {{ total_ratings }} total
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-6 histo">
+            <!-- Iterate through ratings and display histogram -->
+            {% for rating_count in rating_counts %}
+                <div class="{{ rating_count.rating }} histo-rate mb-3">
+                    <span class="histo-star">
+                      <span>{{ rating_count.rating }}</span>
+                        {% for i in "12345"|make_list %}
+                            {% if i <= rating_count.rating|stringformat:"d" %}
+                                <span class="star-filled"><i class="fas fa-star"></i></span>
+                            {% else %}
+                                <span class="star-empty"><i class="far fa-star"></i></span>
+                            {% endif %}
+                        {% endfor %}
+                        
+                    </span>
+                    <span class="bar-block">
+                        <span class="bar" style="width: {{ rating_count.percent_of_total }}%; background-color: {{ rating_count.color }};">
+                            <span><i class="fas fa-user">&nbsp;</i>{{ rating_count.count }}</span>
+                        </span>
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="container px-5 my-5 px-5">
+    <div class="text-center mb-5">
+        <h2 class="fw-bolder">User Comments</h2>
+        <p class="lead mb-0">Here's what our users are saying.</p>
+    </div>
+    <div class="row gx-5 justify-content-center">
+        <div class="col-lg-6">
+            {% for rating in ratings %}
+            <div class="card mb-4">
+                <div class="card-body p-3"> <!-- Adjusted padding from p-4 to p-3 -->
+                    <div class="d-flex">
+                        <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
+                        <div class="ms-4">
+                            <p class="mb-1">{{ rating.comment }}</p>
+                            <div class="small text-muted">
+                                <span class="rating-stars">
+                                    {% for i in "12345" %}
+                                        {% if i|add:"-1" < rating.rating %}
+                                            <i class="fas fa-star" style="font-size:15px;"></i>
+                                        {% else %}
+                                            <i class="far fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </span>
+                                - {{ rating.user.username }}, {{ rating.created_at|date:"F j, Y" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="alert alert-info" role="alert">
+                No ratings found.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

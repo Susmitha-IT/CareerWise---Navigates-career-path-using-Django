@@ -1,0 +1,401 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Wise</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="{% static 'StreamWise/pureknob.js' %}" type="text/javascript"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #333;
+        }
+
+        .container {
+            background-color: #555;
+            color: #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Montserrat', sans-serif;
+            max-width: 800px;
+            margin: auto;
+            margin-top: 5%;
+        }
+
+        .container>p {
+            font-size: 32px;
+        }
+
+        .py-2 h5 {
+            font-family: 'Arial', sans-serif;
+            font-size: 18px;
+            color: #ffcc00;
+        }
+
+        .question {
+            width: 75%;
+            animation: fadeIn 1s;
+        }
+
+        .btn-primary {
+            background-color: #555;
+            color: #ddd;
+            border: 1px solid #ddd;
+        }
+
+        .btn-primary:hover {
+            background-color: #21bf73;
+            border: 1px solid #21bf73;
+        }
+
+        .btn-success {
+            padding: 5px 25px;
+            background-color: #21bf73;
+        }
+
+        .gauge-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .gauge-text {
+            margin-top: 10px;
+            color: #ddd;
+        }
+
+        .short-description {
+
+            font-size: 26px;
+        }
+		
+
+        .detailed-description {
+            margin-top: 10px;
+            color: #ddd;
+        }
+
+        @media(max-width:576px) {
+            .question {
+                width: 100%;
+                word-spacing: 2px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-sm-5 my-1">
+        <form id="questionnaire-form" method="post" action="{% url 'predict_stream' %}">
+            {% csrf_token %}
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question1">
+            <div class="py-2 h5"> Do you enjoy solving challenging problems with numbers and logic, and can you see yourself using these skills in a future career?</div>
+			<div id="knob1" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description1" class="text-center short-description"></p>
+            <p id="detailed-description1" class="text-center"></p>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question2">
+            <div class="py-2 h5"> Can you imagine contributing to technological advancements or space exploration, and what aspect of physics captivates your interest the most?</div>
+			<div id="knob2" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description2" class="text-center short-description"></p>
+            <p id="detailed-description2" class="text-center"></p>
+
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question3">
+            <div class="py-2 h5"> Are you intrigued by the idea of experimenting with substances to understand their properties and create new materials, and does the aspect of chemistry involving medicines and healthcare capture your interest for a potential career in these fields?</div>
+			<div id="knob3" class="d-flex justify-content-center align-items-center"></div>
+			<p id="short-description3" class="text-center short-description"></p>
+            <p id="detailed-description3" class="text-center"></p>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question4">
+            <div class="py-2 h5"> Are you captivated by studying living organisms, genetics, and ecosystems, and can you see yourself finding joy in contributing to fields like healthcare, environmental conservation, or other areas of biological sciences?</div>
+			<div id="knob4" class="d-flex justify-content-center align-items-center"></div>
+			<p id="short-description4" class="text-center short-description"></p>
+            <p id="detailed-description4" class="text-center"></p>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question5">
+            <div class="py-2 h5">Are you enthusiastic about logical thinking and problem-solving in the digital world, and can you imagine creating software, contributing to artificial intelligence, or pursuing a career in coding?</div>
+			<div id="knob5" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description5" class="text-center short-description"></p>
+            <p id="detailed-description5" class="text-center"></p>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question6">
+            <div class="py-2 h5"> How do you feel about managing finances, budgets, and financial reporting, and can you envision a career in auditing or financial advising?</div>
+			<div id="knob6" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description6" class="text-center short-description"></p>
+            <p id="detailed-description6" class="text-center"></p>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question7">
+            <div class="py-2 h5"> Are you intrigued by the mechanisms of business success, from management to marketing, and does the prospect of entrepreneurship or market analysis particularly capture your interest, possibly leading you towards a career in these fields?</div>
+			<div id="knob7" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description7" class="text-center short-description"></p>
+            <p id="detailed-description7" class="text-center"></p>
+        </div>
+
+        <!-- Question 8 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question8">
+            <div class="py-2 h5">Do you find the study of how societies use resources and distribute wealth intriguing, and concepts like supply and demand, inflation, or policy-making aspects of economics that resonate with you and inspire thoughts of a career in finance, market analysis, or policy-making?</div>
+			<div id="knob8" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description8" class="text-center short-description"></p>
+            <p id="detailed-description8" class="text-center"></p>
+        </div>
+
+        <!-- Question 9 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question9">
+            <div class="py-2 h5">Are you fascinated by learning about past events, cultures, and societies, and can you imagine a career in teaching history, working in a museum, or becoming a historian?</div>
+			<div id="knob9" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description9" class="text-center short-description"></p>
+            <p id="detailed-description9" class="text-center"></p>
+        </div>
+
+        <!-- Question 10 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question10">
+            <div class="py-2 h5"> Do you find joy in exploring landscapes, environments, and human relationships with the Earth, and can you see yourself working in environmental management, urban planning, or geographic information systems?</div>
+			<div id="knob10" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description10" class="text-center short-description"></p>
+            <p id="detailed-description10" class="text-center"></p>
+        </div>
+
+        <!-- Question 11 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question11">
+            <div class="py-2 h5"> Are you interested in understanding government systems, politics, and international relations, and can you envision a career in law, government, or working for international organizations?</div>
+			<div id="knob11" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description11" class="text-center short-description"></p>
+            <p id="detailed-description11" class="text-center"></p>
+        </div>
+
+        <!-- Question 12 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question12">
+            <div class="py-2 h5"> Do you find human behavior and the mind intriguing, and can you imagine a career in psychology, such as counseling, clinical psychology, or research?</div>
+			<div id="knob12" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description12" class="text-center short-description"></p>
+            <p id="detailed-description12" class="text-center"></p>
+        </div>
+
+        <!-- Question 13 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question13">
+            <div class="py-2 h5"> Are you curious about studying human society, social relationships, and culture, and can you envision working in fields like social research, community development, or public policy?</div>
+			<div id="knob13" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description13" class="text-center short-description"></p>
+            <p id="detailed-description13" class="text-center"></p>
+        </div>
+
+        <!-- Question 14 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question14">
+            <div class="py-2 h5"> Do you enjoy exploring fundamental questions about existence, knowledge, and ethics, and can you see yourself working as a philosopher, writer, or in ethical consulting?</div>
+			<div id="knob14" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description14" class="text-center short-description"></p>
+            <p id="detailed-description14" class="text-center"></p>
+        </div>
+
+        <!-- Question 15 -->
+        <div class="question mx-auto ml-sm-5 pl-sm-5 pt-2" id="question15">
+            <div class="py-2 h5"> Are you passionate about learning and communicating in different languages, and can you envision a career in translation, language teaching, or international relations?</div>
+			<div id="knob15" class="d-flex justify-content-center align-items-center"></div>
+            <p id="short-description15" class="text-center short-description"></p>
+            <p id="detailed-description15" class="text-center"></p>
+            <div class="text-center mt-3">
+                <button class="btn btn-primary" style="background-color:#0d47a1;" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+        <div class="d-flex align-items-center pt-3">
+            <div id="prev">
+                <button class="btn btn-primary" onclick="changeQuestion(-1)">Previous</button>
+            </div>
+            <div class="ml-auto mr-sm-5">
+                <button class="btn btn-success" onclick="changeQuestion(1)">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap and jQuery Scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Your JavaScript code here -->
+ 
+<script>
+    let currentQuestion = 1;
+    const totalQuestions = 15;
+    const knobValues = {};
+
+    function createKnob(elementId) {
+        const knob = pureknob.createKnob(300, 300);
+        knob.setProperty('angleStart', -0.75 * Math.PI);
+        knob.setProperty('angleEnd', 0.75 * Math.PI);
+        knob.setProperty('trackWidth', 0.4);
+        knob.setProperty('valMin', 0);
+        knob.setProperty('valMax', 10);
+
+        const colorMap = {
+            1: '#FF3333',
+            2: '#FF6347',
+            3: '#FFA500',
+            4: '#00FFFF',
+            5: '#6495ED',
+            6: '#8A2BE2',
+            7: '#FFD700',
+            8: '#ADFF2F',
+            9: '#7FFF00',
+            10: '#00FF7F'
+        };
+
+        const updateColor = function(knob, value) {
+            const color = colorMap[Math.round(value)] || '#00FF7F';
+            knob.setProperty('colorFG', color);
+        };
+
+        const listener = function(knob, value) {
+            updateColor(knob, value);
+            knobValues[elementId] = value;
+            updateDescriptions(value, elementId);
+            // Update hidden input value when knob is interacted with
+            const hiddenInput = document.querySelector(`input[name="${elementId}_score"]`);
+            if (hiddenInput) hiddenInput.value = value;
+        };
+
+        knob.addListener(listener);
+        knob.setValue(10);
+        updateColor(knob, 10);
+        const node = knob.node();
+        const elem = document.getElementById(elementId);
+        elem.appendChild(node);
+
+        // Create a hidden input field to store knob value
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = elementId + '_score';  // Use the elementId to uniquely identify the score
+        hiddenInput.value = 10;  // Set default value as 10
+        elem.appendChild(hiddenInput);
+    }
+
+    function updateDescriptions(value, elementId) {
+        const feedback = getFeedbackText(Math.round(value));
+        const shortDescElem = document.getElementById('short-description' + elementId.substr(4));
+        const detailedDescElem = document.getElementById('detailed-description' + elementId.substr(4));
+
+        shortDescElem.innerText = feedback.shortDescription;
+        detailedDescElem.innerText = feedback.detailedDescription;
+
+        // Update the color of the short description
+        shortDescElem.style.color = getColorForValue(Math.round(value));
+        knobValues[elementId] = value;
+    }
+
+    function getColorForValue(value) {
+        const colorMap = {
+            1: '#FF3333', 2: '#FF6347', 3: '#FFA500',
+            4: '#00FFFF', 5: '#6495ED', 6: '#8A2BE2',
+            7: '#FFD700', 8: '#ADFF2F', 9: '#7FFF00', 10: '#00FF7F'
+        };
+        return colorMap[value] || '#FFFFFF';
+    }
+
+    function getFeedbackText(value) {
+        const feedbackMap = {
+            1: { shortDescription: 'Not My Thing', detailedDescription: "I really don't like this subject. It's just not for me." },
+            2: { shortDescription: 'Not So Fun', detailedDescription: "This subject? Meh, not really interesting to me." },
+            3: { shortDescription: 'Kinda Boring', detailedDescription: "It's a bit dull, but I guess I can handle it if I have to." },
+            4: { shortDescription: 'Just Okay-ish', detailedDescription: "There might be a tiny bit I like, but mostly, it's just okay." },
+            5: { shortDescription: 'So-So', detailedDescription: "I'm right in the middle. Don’t love it, don’t hate it." },
+            6: { shortDescription: 'Somewhat Cool', detailedDescription: "There are bits and pieces of this subject I actually find cool." },
+            7: { shortDescription: 'Pretty Good', detailedDescription: "I like this subject. It's quite interesting." },
+            8: { shortDescription: 'Really Like It', detailedDescription: "I really enjoy this subject. It's one of my favorites." },
+            9: { shortDescription: 'Super Excited', detailedDescription: "I get super excited about this subject. I love learning more about it!" },
+            10: { shortDescription: 'Absolutely Love It', detailedDescription: "This subject is awesome! I totally love everything about it." }
+        };
+        return feedbackMap[value];
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        for (let i = 1; i <= totalQuestions; i++) {
+            const questionId = 'question' + i;
+            const knobId = 'knob' + i;
+            createKnob(knobId);
+            if (i !== 1) {
+                document.getElementById(questionId).style.display = 'none';
+            }
+        }
+    }, false);
+
+    function changeQuestion(direction) {
+        const currentQuestionElement = document.getElementById('question' + currentQuestion);
+        if (currentQuestion === 0) {
+            document.getElementById('slide0').style.display = 'none';
+            currentQuestion = 1;
+            currentQuestionElement.style.display = 'block';
+        } else {
+            currentQuestionElement.style.display = 'none';
+            currentQuestion += direction;
+            if (currentQuestion < 1) currentQuestion = 1;
+            if (currentQuestion > totalQuestions) currentQuestion = totalQuestions;
+            document.getElementById('question' + currentQuestion).style.display = 'block';
+        }
+    }
+
+    function submitForm() {
+        // Create a form data object
+        const formData = new FormData();
+        
+        // Add knob values to the form data
+        for (const knobId in knobValues) {
+            formData.append(knobId + '_score', knobValues[knobId]);
+        }
+        
+        // Send a POST request with the form data
+        fetch('{% url 'predict_stream' %}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the server
+            console.log(data);
+            // Redirect or display a message as needed
+        })
+        .catch(error => {
+            // Handle errors
+            console.error('Error:', error);
+        });
+    }
+</script>
+
+</body>
+</html>

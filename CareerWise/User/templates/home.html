@@ -1,0 +1,583 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Career Wise</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+    <style>
+        body,
+        html {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            display: fixed;
+            align-items: center;
+            justify-content: space-between;
+            /* Adjusted for space-between */
+            text-align: center;
+            padding-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .header-logo {
+            width: 0px;
+            margin-right: 0px;
+        }
+
+        .header-title {
+            font-size: 3em;
+            font-family: Arial, sans-serif;
+        }
+
+        .header-title {
+            flex-grow: 1;
+            text-align: left;
+            font-size: 25px;
+            /* Default font size */
+            padding: 10px;
+        }
+
+        .logout-link {
+            color: black;
+            font-size: 18px;
+            text-decoration: none;
+            margin-right: 50px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header-logo {
+                width: 80px;
+                /* Smaller logo for smaller screens */
+            }
+
+            .header-title {
+                font-size: 18px;
+                /* Smaller font size for smaller screens */
+            }
+
+            .logout-link {
+                font-size: 16px;
+                /* Smaller font size for smaller screens */
+            }
+        }
+
+        .link-symbol {
+            font-size: 20px;
+            margin-right: 5px;
+            color: #9400D3;
+        }
+
+        @media (max-width: 768px) {
+            .header-links {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+
+            .home-link,
+            .logout-link {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .row {
+            text-align: center;
+        }
+
+        .row>div {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        @media (min-width: 992px) {
+            .col-md-4 {
+                float: none;
+                /* Remove the float */
+            }
+        }
+
+        .card-big-shadow {
+            min-height: 150px;
+            max-width: 300px;
+            position: relative;
+        }
+
+        .coloured-cards .card {
+            margin-top: 30px;
+        }
+
+        .card[data-radius="none"] {
+            border-radius: 0px;
+        }
+
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+            background-color: #555;
+            color: #252422;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .card[data-background="image"] .title,
+        .card[data-background="image"] .stats,
+        .card[data-background="image"] .category,
+        .card[data-background="image"] .description,
+        .card[data-background="image"] .content,
+        .card[data-background="image"] .card-footer,
+        .card[data-background="image"] small,
+        .card[data-background="image"] .content a,
+        .card[data-background="color"] .title,
+        .card[data-background="color"] .stats,
+        .card[data-background="color"] .category,
+        .card[data-background="color"] .description,
+        .card[data-background="color"] .content,
+        .card[data-background="color"] .card-footer,
+        .card[data-background="color"] small,
+        .card[data-background="color"] .content a {
+            color: #FFFFFF;
+        }
+
+        .card.card-just-text .content {
+            padding: 50px 65px;
+            text-align: center;
+        }
+
+        .card .content {
+            padding: 20px 20px 10px 20px;
+        }
+
+        .card[data-color="blue"] .category {
+            color: #7a9e9f;
+        }
+
+        .card .category,
+        .card .label {
+            font-size: 14px;
+            margin-bottom: 0px;
+        }
+
+        .card-big-shadow:before {
+            background-image: url("http://static.tumblr.com/i21wc39/coTmrkw40/shadow.png");
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            bottom: -12%;
+            content: "";
+            display: block;
+            left: -12%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 0;
+        }
+
+        h4,
+        .h4 {
+            font-size: 1.5em;
+            font-weight: 600;
+            line-height: 1.2em;
+        }
+
+        h6,
+        .h6 {
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .card .description {
+            font-size: 16px;
+            color: #66615b;
+        }
+
+        .content-card {
+            margin-top: 30px;
+        }
+
+        a:hover,
+        a:focus {
+            text-decoration: none;
+        }
+
+        /*======== COLORS ===========*/
+
+        .card[data-color="yellow"] {
+            background: #555;
+        }
+
+        .card[data-color="black"] .description {
+            color: #555;
+        }
+
+        .card[data-color="black"] .category {
+            color: #555;
+        }
+        .quote-of-the-day-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0; /* Position the overlay on the right side */
+            width: 300px; /* Set a fixed width */
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: auto; /* Enable scrolling if content exceeds the height */
+        }
+
+        .quote-of-the-day-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .quote-of-the-day-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        #toggleQuoteButton,#toggleChatbotButton{
+            margin-right: 100px; /* Add margin to the right for spacing */
+            font-size: 16px; /* Set font size */
+        }
+        
+        #toggleQuoteButton:hover,#toggleChatbotButton:hover {
+            opacity: 0.8; /* Reduce opacity on hover for visual feedback */
+        }
+        .chatbot-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+             overflow-y: auto;
+            
+        }
+
+        .chatbot-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+
+        }
+
+        .chatbot-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+        .user-message {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            max-width: 250px;
+            align-self: flex-start;
+        }
+
+        .bot-message {
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            max-width: 250px;
+            align-self: flex-end;
+        }
+        #query-buttons .query-button {
+            width: 250px;
+            text-wrap: wrap;
+        }
+        
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <img src="" alt="" class="header-logo">
+            <span class="header-title"><b>Career Wise</b></span>
+            <div class="header-links">
+                <button id="toggleQuoteButton" class="btn btn-primary">
+                    <i class="fa fa-quote-left"></i> Quote of the Day
+                </button>
+                <button id="toggleChatbotButton" class="btn btn-primary">
+                    <i class='fas fa-comment-dots'></i> Chat Bot
+                </button>            
+                <a href="{% url 'logout' %}" class="logout-link"><i class="fa fa-sign-out link-symbol"></i>Logout</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <!-- Include a greeting message and quote of the day -->
+        <div class="greeting">
+            <h3>Hello, {{ user.username }}!</h3>
+    </div>
+    <div class="quote-of-the-day-overlay" id="quoteOverlay">
+        <div class="quote-of-the-day-container">
+            <blockquote id="quoteContent"></blockquote>
+            <span class="quote-of-the-day-close" id="closeQuoteButton">&times;</span>
+        </div>
+    </div>
+    <div class="chatbot-overlay" id="chatbotOverlay">
+        <span class="chatbot-close" id="closeChatbotButton">&times;</span>
+        <div id="chat-container" class="container">
+           <h4 style="color:white;">Chatbot</h4>
+            <div id="chat-messages"></div>
+            <div id="query-buttons">
+                <button class="btn btn-primary query-button" data-query="How do I use the gauge to score out of 10?">How do I use the gauge to score out of 10?</button><br><br>
+                <button class="btn btn-primary query-button" data-query="How does the Stream Finder match me with suitable streams?">How does the Stream Finder match me with suitable streams?</button><br><br>
+                <button class="btn btn-primary query-button" data-query="Can I change my selected stream later?">Can I change my selected stream later?</button><br><br>
+                <button class="btn btn-primary query-button" data-query="What happens if I change my mind about a rating I previously submitted?">What happens if I change my mind about a rating I previously submitted?</button><br><br>
+                <button class="btn btn-primary query-button" data-query="What does the Aptitude Assessment cover?">What does the Aptitude Assessment cover?</button><br><br>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-sm-6 content-card" data-aos="fade-up">
+                <div class="card-big-shadow">
+                    <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
+                        <div class="content">
+                            <h4 class="title"><a href="{% url 'streamwise_start' %}">Stream Finder<br><br><i class='fas fa-search' style='font-size:58px;color:white;'></i></a></h4>
+                            <p class="description"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           <div class="col-md-4 col-sm-6 content-card" data-aos="fade-up">
+                <div class="card-big-shadow">
+                    <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
+                        <div class="content">
+                            <h4 class="title"><a href="{% url 'startchat' %}">Career Bot<br><br><i class='fa-solid fa-robot' style='font-size:58px;color:white;'></i></a></h4>
+                            <p class="description"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4 col-sm-6 content-card" data-aos="fade-up">
+                <div class="card-big-shadow">
+                    <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
+                        <div class="content">
+                            <h4 class="title"><a href="{% url 'startquiz' %}">Know Your Apt<br><br><i class='fas fa-trophy' style='font-size:58px;color:white;'></i></a></h4>
+                            <p class="description"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 content-card" data-aos="fade-up">
+                <div class="card-big-shadow">
+                    <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
+                        <div class="content">
+                            <h4 class="title"><a href="{% url 'rating' %}">Rating Hub<br><br><i class='fas fa-clipboard-check' style='font-size:58px;color:white;'></i></a></h4>
+                            <p class="description"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script>
+        $(document).ready(function() {
+            // Function to toggle chatbot overlay visibility
+            function toggleChatbotOverlay() {
+                $('#chatbotOverlay').toggle();
+            }
+
+            // Hide the chatbot overlay initially
+            $('#chatbotOverlay').hide();
+
+            // Toggle the chatbot overlay on button click
+            $('#toggleChatbotButton').click(function() {
+                toggleChatbotOverlay();
+            });
+
+            // Close the chatbot overlay on close button click
+            $('#closeChatbotButton').click(function() {
+                toggleChatbotOverlay();
+            });
+
+            const chatMessages = document.getElementById('chat-messages');
+            const queryButtons = document.querySelectorAll('.query-button');
+
+            // Define responses for each query
+            const responses = {
+                "How do I use the gauge to score out of 10?": "To score out of 10 using the gauge, simply drag the pointer to the desired score on the gauge. The gauge will visually represent your score, enabling quick and easy interpretation. You can then use this score to evaluate your performance or progress in various areas.",
+                "How does the Stream Finder match me with suitable streams?": "The Stream Finder uses advanced machine learning algorithms to analyze your interests, skills, and career aspirations. It then matches you with streams that align closely with your profile, ensuring a personalized and relevant experience.",
+                "Can I change my selected stream later?": "Yes, you can change your selected stream at any time by retaking the subject interests. Simply navigate back to the Stream Finder feature, review your options, and make adjustments based on your preferences and goals.",
+                "What happens if I change my mind about a rating I previously submitted?": "If you change your mind about a rating you previously submitted, you can easily update it in the Rating Hub. Simply locate the resource, access your previous rating, and choose the 'Edit' or 'Update' option. Make the necessary adjustments to reflect your current evaluation.",
+                "What does the Aptitude Assessment cover?": "The Aptitude Assessment covers various aspects such as cognitive abilities, problem-solving skills, and personality traits to provide you with insights into your strengths and areas of improvement."
+            };
+
+            queryButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    if (!this.disabled) {
+                        const query = this.dataset.query;
+                        displayMessage(query, false);
+                        displayMessage(responses[query], true);
+                        this.disabled = true;
+                        this.classList.remove('btn-primary');
+                        this.classList.add('btn-secondary');
+                    }
+                });
+            });
+
+            function displayMessage(message, isBotMessage) {
+                const messageDiv = document.createElement('div');
+                messageDiv.textContent = message;
+                if (isBotMessage) {
+                    messageDiv.classList.add('bot-message', 'alert', 'alert-info');
+                } else {
+                    messageDiv.classList.add('user-message', 'alert', 'alert-primary');
+                }
+                chatMessages.appendChild(messageDiv);
+            }
+        });
+        var quotes = [
+    "Dream, dream, dream. Dreams transform into thoughts and thoughts result in action. - APJ Abdul Kalam",
+    "Arise, awake, and stop not till the goal is reached. - Swami Vivekananda",
+    "You have to dream before your dreams can come true. - APJ Abdul Kalam",
+    "In a conflict between the heart and the brain, follow your heart. - Swami Vivekananda",
+    "Great dreams of great dreamers are always transcended. - APJ Abdul Kalam",
+    "Take risks in your life. If you win, you can lead; if you lose, you can guide. - Swami Vivekananda",
+    "Don't take rest after your first victory because if you fail in the second, more lips are waiting to say that your first victory was just luck. - APJ Abdul Kalam",
+    "The greatest sin is to think yourself weak. - Swami Vivekananda",
+    "All of us do not have equal talent. But, all of us have an equal opportunity to develop our talents. - APJ Abdul Kalam",
+    "Strength is life, weakness is death. - Swami Vivekananda",
+    "Teaching is a very noble profession that shapes the character, caliber, and future of an individual. - APJ Abdul Kalam",
+    "Arise! Awake! and stop not until the goal is reached. - Swami Vivekananda",
+    "Excellence is a continuous process and not an accident. - APJ Abdul Kalam",
+    "You cannot believe in God until you believe in yourself. - Swami Vivekananda",
+    "All birds find shelter during a rain. But, the eagle avoids rain by flying above the clouds. - APJ Abdul Kalam",
+    "The world is the great gymnasium where we come to make ourselves strong. - Swami Vivekananda",
+    "Confidence and hard work is the best medicine to kill the disease called failure. - APJ Abdul Kalam",
+    "Stand up, be bold, and take the blame on your own shoulders. Do not go about throwing mud at other; for all the faults you suffer, you are the sole and only cause. - Swami Vivekananda",
+    "Man needs his difficulties because they are necessary to enjoy success. - APJ Abdul Kalam",
+    "The greatest religion is to be true to your own nature. Have faith in yourselves. - Swami Vivekananda",
+    "To succeed in your mission, you must have single-minded devotion to your goal. - APJ Abdul Kalam",
+    "You have to grow from the inside out. None can teach you, none can make you spiritual. There is no other teacher but your own soul. - Swami Vivekananda",
+    "Man needs his difficulties because they are necessary to enjoy success. - APJ Abdul Kalam",
+    "Take risks: If you win, you will be happy; if you lose, you will be wise. - Swami Vivekananda",
+    "Let us sacrifice our today so that our children can have a better tomorrow. - APJ Abdul Kalam",
+    "Do not wait for anybody or anything. Do whatever you can, build your hope on none. - Swami Vivekananda",
+    "Suffering is the essence of success. - APJ Abdul Kalam",
+    "The greatest religion is to be true to your own nature. Have faith in yourselves. - Swami Vivekananda",
+    "My message, especially to young people is to have courage to think differently, courage to invent, to travel the unexplored path, courage to discover the impossible and to conquer the problems and succeed. - APJ Abdul Kalam",
+    "All power is within you; you can do anything and everything. Believe in that, do not believe that you are weak; do not believe that you are half-crazy lunatics, as most of us do nowadays. - Swami Vivekananda"
+    
+];
+
+function getQuoteOfTheDay() {
+    var currentDate = new Date();
+    var dayOfMonth = currentDate.getDate();
+    // Check if the day is within the range of the array length
+    if (dayOfMonth >= 1 && dayOfMonth <= quotes.length) {
+        // Adjusting for zero-based indexing
+        var index = dayOfMonth - 1;
+        return quotes[index];
+    } else {
+        return "We are all stories in the end. Just make it a good one, eh? - Chetan Bhagat";
+    }
+}
+
+
+$(document).ready(function() {
+    // Function to toggle quote overlay visibility
+    function toggleQuoteOverlay() {
+        $('#quoteOverlay').toggle();
+    }
+
+    // Hide the quote overlay initially
+    $('#quoteOverlay').hide();
+
+    // Toggle the quote overlay on button click
+    $('#toggleQuoteButton').click(function() {
+        var quote = getQuoteOfTheDay();
+        $('#quoteContent').text(quote);
+        toggleQuoteOverlay();
+    });
+
+    // Close the quote overlay on close button click
+    $('#closeQuoteButton').click(function() {
+        toggleQuoteOverlay();
+    });
+});
+</script>
+</body>
+<script>
+    // Disable caching on the client side
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+</script>
+</html>

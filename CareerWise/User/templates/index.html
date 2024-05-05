@@ -1,0 +1,269 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Career Wise</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+    <style>
+        .containerz {
+            margin-top: 3em;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width:70%;
+          }
+          .rating, .histo {
+            padding: 15px;
+          }
+          .rating {
+            text-align: center;
+          }
+          .rating-num {
+            font-size: 72px;
+            font-weight: 100;
+            line-height: 1em; 
+            margin-bottom: 10px;
+          }
+          .rating-stars .fas {
+            font-size: 36px; /* Increased font size for stars */
+            color: #FFD700; /* Yellow */
+          }
+          
+          .rating-users {
+            font-size: 14px;
+          }
+          .histo {
+            font-size: 13px;
+          }
+          .histo-star {
+            padding: 3px;
+          }
+          /* CSS */
+          .star-filled {
+            color: #FFD700; /* Set filled star color to yellow */
+          }
+    
+          .star-empty {
+            color: #ced4da; /* Set empty star color */
+          }
+    
+          .histo-star span {
+            margin-right: 5px; /* Adjust spacing between stars and numbers */
+          }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{% static 'User/css/styles.css' %}">
+            
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container px-5">
+            <a class="navbar-brand" href="{% url 'index' %}">Career Wise</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#steps">Steps</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#testimonial">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'login' %}">Sign in</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <header class="bg-dark py-5">
+        <div class="container px-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-6">
+                    <div class="text-center my-5">
+                        <h1 class="display-5 fw-bolder text-white mb-2">Welcome to Career Wise Shaping Futures, Empowering Dreams</h1>
+                        <p class="lead text-white-50 mb-4">Welcome to a Future-Ready Career Guidance Platform for Secondary Students. Our mission is to illuminate these paths with the power of insights and personalized guidance.</p>
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="{% url 'signup' %} ">Get Started</a>
+                            <a class="btn btn-outline-light btn-lg px-4" href="#steps">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Features section-->
+    <!-- Features section-->
+<section class="py-5 border-bottom" id="features">
+    <div class="container px-5 my-5">
+        <div class="row gx-5">
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <h2 class="h4 fw-bolder"><center>Stream Finder 🌟</center></h2><br>
+                <p>
+                    <ul>
+                        <li>Discover the most suitable academic stream based on your interests and aptitudes.</li><br>
+                        <li>Receive personalized recommendations tailored to your unique strengths.</li>
+                    </ul>
+                </p>
+            </div>
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <h2 class="h4 fw-bolder"><center>Career Bot 🎯</center></h2><br>
+                <p>
+                    <ul>
+                        <li>Interact with our Career Bot to explore educational and career options.</li><br>
+                        <li>Receive dynamic guidance and information based on your preferences.</li>
+                    </ul>
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <h2 class="h4 fw-bolder"><center>Know Your Apt ✨</center></h2><br>
+                <p>
+                    <ul>
+                        <li>Engage in a quiz-based aptitude assessment to identify your strengths.</li><br>
+                        <li>Receive personalized feedback and insights to guide your educational and career decisions.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-5 border-bottom" id="steps">
+    <div class="container px-5 my-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bolder">How it Works</h2>
+            <p class="lead mb-0">Take the first step towards a fulfilling future.</p>
+        </div>
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-6 col-xl-4">
+                <div class="card mb-5 mb-xl-0">
+                    <div class="card-body p-5">
+                        <div class="small text-uppercase fw-bold text-muted">Step 1</div>
+                        <div class="mb-3">
+                            <span class="display-6 fw-bold">Mark Your Interests 🤔</span>
+                        </div>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">
+                                <i class="bi bi-check text-primary"></i>
+                                Subject Interest Assessment
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check text-primary"></i>
+                                Stream Discovery
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4">
+                <div class="card mb-5 mb-xl-0">
+                    <div class="card-body p-5">
+                        <div class="small text-uppercase fw-bold text-muted">Step 2</div>
+                        <div class="mb-3">
+                            <span class="display-6 fw-bold">Explore the Career Bot 🤓</span>
+                        </div>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">
+                                <i class="bi bi-check text-primary"></i>
+                                Interactive Career Guidance
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check text-primary"></i>
+                                Informed Decision-Making
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-4">
+                <div class="card mb-5 mb-xl-0">
+                    <div class="card-body p-5">
+                        <div class="small text-uppercase fw-bold text-muted">Step 3</div>
+                        <div class="mb-3">
+                            <span class="display-6 fw-bold">Check your Skill 🤩</span>
+                        </div>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">
+                                <i class="bi bi-check text-primary"></i>
+                                Aptitude Test
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check text-primary"></i>
+                                Identify areas of improvement
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    
+    <section class="py-5 border-bottom" id="testimonial">
+        <div class="text-center mb-5">
+            <h2 class="fw-bolder">Reviews</h2>
+            <p class="lead mb-0">Top-rated feedback from students and parents.</p><br>
+            <a href="{% url 'viewrating' %}" class="view-comment-link" style="display: inline-block; background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;"><i class="fas fa-comments"></i> View Comments</a>
+        </div>
+        <div class="containerz mx-auto">
+                <div class="row">
+                <div class="col-md-6 rating">
+                    <!-- Calculate average rating -->
+                    {% if total_ratings %}
+                        <span class="rating-num">{{ average_rating|floatformat:"1" }}</span>
+                        <div class="rating-stars">
+                            {% for star_value in "12345" %}
+                                {% if star_value|add:"-1" < average_rating %}
+                                    <span><i class="fas fa-star"></i></span>
+                                {% else %}
+                                    <span><i class="far fa-star"></i></span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="rating-users">
+                            <i class="fas fa-user"></i> {{ total_ratings }} total
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 histo">
+                    <!-- Iterate through ratings and display histogram -->
+                    {% for rating_count in rating_counts %}
+                        <div class="{{ rating_count.rating }} histo-rate mb-3">
+                            <span class="histo-star">
+                                <span>{{ rating_count.rating }}</span>
+                                {% for i in "12345"|make_list %}
+                                    {% if i <= rating_count.rating|stringformat:"d" %}
+                                        <span class="star-filled"><i class="fas fa-star"></i></span>
+                                    {% else %}
+                                        <span class="star-empty"><i class="far fa-star"></i></span>
+                                    {% endif %}
+                                {% endfor %}
+                            </span>
+                            <span class="bar-block">
+                                <span class="bar" style="width: {{ rating_count.percent_of_total }}%; background-color: {{ rating_count.color }};">
+                                    <span><i class="fas fa-user">&nbsp;</i>{{ rating_count.count }}</span>
+                                </span>
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="py-5 bg-dark">
+        <div class="container px-5">
+            <p class="m-0 text-center text-white">Copyright &copy; CareerWise</p>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+</body>
+</html>
