@@ -13,7 +13,9 @@ Through modules like Stream Finder, Career Bot, Know Your Apt, and Rating Hub, t
 The website features a "Quote of the Day" section, dynamically displaying inspirational quotes. Additionally, it offers a "Chat Bot" module for interactive assistance with platform-related queries, enhancing user engagement and providing valuable insights. 
 
 [Watch Project Execution Video](https://drive.google.com/file/d/12D_olUa7eOla7qUNCQxvDwrq7XAqMtge/view?usp=sharing)
+
 [Project Document](https://drive.google.com/file/d/1KoQbe6JVIeENiOPgOeGymzNKt9deGsOu/view)
+
 Project Snapshots
 
 ![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/8b3f7ef9-522e-4d52-9804-236f2f1ecf3f)
