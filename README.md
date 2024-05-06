@@ -16,7 +16,7 @@ The website features a "Quote of the Day" section, dynamically displaying inspir
 
 [Project Document](https://drive.google.com/file/d/1KoQbe6JVIeENiOPgOeGymzNKt9deGsOu/view)
 
-For detailed instructions on how to install and run the project, please refer to the [installation guide](https://www.codewithharry.com/blogpost/django-cheatsheet/).
+For detailed instructions on how to install and run the project, please refer to the [guide](https://www.codewithharry.com/blogpost/django-cheatsheet/).
 
 Project Snapshots
 
