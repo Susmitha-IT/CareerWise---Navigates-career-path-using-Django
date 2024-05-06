@@ -38,6 +38,13 @@ Project Snapshots
 - Rating Hub
 
 ![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/f5ed9444-eba4-4bfe-9262-a114245097fc)
+![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/3c4019a6-602b-4060-a082-c55ac16c0a6d)
+
+
+Admin Panel
+
+![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/7b61ca3a-6d6f-40f4-af89-a8ea34badcb9)
+![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/ced6c092-9dee-4649-89c0-53a0e3f0af15)
 
 
 
