@@ -16,6 +16,8 @@ The website features a "Quote of the Day" section, dynamically displaying inspir
 
 [Project Document](https://drive.google.com/file/d/1KoQbe6JVIeENiOPgOeGymzNKt9deGsOu/view)
 
+For detailed instructions on how to install and run the project, please refer to the [installation guide]([https://example.com/installation-guide](https://www.codewithharry.com/blogpost/django-cheatsheet/).
+
 Project Snapshots
 
 ![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/8b3f7ef9-522e-4d52-9804-236f2f1ecf3f)
