@@ -14,8 +14,9 @@ assistance.
 ● Know Your Apt offers a quiz-based assessment of users aptitude 
 with personalized feedback.
 
-● The Rating Hub module enables users to contribute ratings and 
-comments.  
+● The Rating Hub module with user authentication for rating and commenting,
+ and public access for viewing average ratings, total ratings and distribution by
+ stars.
 
 
 [Watch the video](https://drive.google.com/file/d/12D_olUa7eOla7qUNCQxvDwrq7XAqMtge/view?usp=sharing)
