@@ -18,5 +18,8 @@ with personalized feedback.
  and public access for viewing average ratings, total ratings and distribution by
  stars.
 
+The website features a "Quote of the Day" section, dynamically displaying inspirational quotes. 
+Additionally, it offers a "Chat Bot" module for interactive assistance with platform-related queries, 
+enhancing user engagement and providing valuable insights. 
 
 [Watch the video](https://drive.google.com/file/d/12D_olUa7eOla7qUNCQxvDwrq7XAqMtge/view?usp=sharing)
