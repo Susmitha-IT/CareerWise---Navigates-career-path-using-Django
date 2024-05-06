@@ -15,10 +15,30 @@ The website features a "Quote of the Day" section, dynamically displaying inspir
 [Watch Project Execution Video](https://drive.google.com/file/d/12D_olUa7eOla7qUNCQxvDwrq7XAqMtge/view?usp=sharing)
 
 Project Snapshots
+
 ![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/8b3f7ef9-522e-4d52-9804-236f2f1ecf3f)
 ![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/0c91f7df-62f0-4013-b15c-7fdd15d8754f)
 ![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/66f16217-4ec8-490e-9443-c0ba3d7e584a)
+
+- Stream Finder
+  
 ![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/8f6579bf-8f1f-486f-8936-5e3643cf536c)
 ![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/483da5cc-7a1d-461d-b04c-c47e5d7a4b74)
+
+- Career Bot
+  
 ![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/1e9eb8c4-3eea-4de1-8f97-5a7e521703cb)
+
+- Know Your Apt
+  
+![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/3df77062-5c1e-448c-a524-ca8519f93881)
+![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/357db6d5-11ad-48a3-a7a5-80d42fe99e5d)
+![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/3bd984e8-325a-41fe-bde0-c3c137d4e046)
+
+- Rating Hub
+
+![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/f5ed9444-eba4-4bfe-9262-a114245097fc)
+
+
+
 
