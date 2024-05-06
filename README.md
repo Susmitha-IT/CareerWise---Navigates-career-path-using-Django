@@ -45,8 +45,8 @@ Project Snapshots
 
 Admin Panel
 
-![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/5a0a80f0-764f-4ee2-9069-aa2095f237b6)
-![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/ced6c092-9dee-4649-89c0-53a0e3f0af15)
+![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/a9692dba-314f-4cf4-9ab6-c9165920be3c)
+![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/e541ca73-e1f1-4d53-a949-d06506fa9413)
 
 
 
