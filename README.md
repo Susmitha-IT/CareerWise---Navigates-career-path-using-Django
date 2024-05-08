@@ -10,7 +10,9 @@ Through modules like Stream Finder, Career Bot, Know Your Apt, and Rating Hub, t
 
 ● The Rating Hub module with user authentication for rating and commenting, and public access for viewing average ratings, total ratings and distribution by stars.
 
-The website features a "Quote of the Day" section, dynamically displaying inspirational quotes. Additionally, it offers a "Chat Bot" module for interactive assistance with platform-related queries, enhancing user engagement and providing valuable insights. 
+The website features a "Quote of the Day" section, dynamically displaying inspirational quotes. Additionally, it offers a "Chat Bot" module for interactive assistance with platform-related queries, enhancing user engagement and providing valuable insights.
+
+Tech Stack: #Python #Django #HTML #Bootstrap #CSS #JavaScript
 
 [CareerWise](http://susmitha03.pythonanywhere.com/) - Access the live version of the project.
 This project is hosted on PythonAnywhere.
