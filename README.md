@@ -12,6 +12,9 @@ Through modules like Stream Finder, Career Bot, Know Your Apt, and Rating Hub, t
 
 The website features a "Quote of the Day" section, dynamically displaying inspirational quotes. Additionally, it offers a "Chat Bot" module for interactive assistance with platform-related queries, enhancing user engagement and providing valuable insights. 
 
+This project is hosted on [PythonAnywhere](https://www.pythonanywhere.com/).
+[CareerWise](http://susmitha03.pythonanywhere.com/) - Access the live version of the project.
+
 [Watch Project Execution Video](https://drive.google.com/file/d/12D_olUa7eOla7qUNCQxvDwrq7XAqMtge/view?usp=sharing)
 
 [Project Document](https://drive.google.com/file/d/1KoQbe6JVIeENiOPgOeGymzNKt9deGsOu/view)
