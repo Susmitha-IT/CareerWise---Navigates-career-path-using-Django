@@ -1,4 +1,8 @@
+## CareerWise
+
 CareerWise is a comprehensive website aimed at guiding Class 9 and 10 secondary school students in making informed decisions regarding their educational and career paths. 
+
+## Features
 
 Through modules like Stream Finder, Career Bot, Know Your Apt, and Rating Hub, this project leverages machine learning algorithms and interactive interfaces to offer tailored assistance. 
 
@@ -12,18 +16,25 @@ Through modules like Stream Finder, Career Bot, Know Your Apt, and Rating Hub, t
 
 The website features a "Quote of the Day" section, dynamically displaying inspirational quotes. Additionally, it offers a "Chat Bot" module for interactive assistance with platform-related queries, enhancing user engagement and providing valuable insights.
 
-Tech Stack: #Python #Django #HTML #Bootstrap #CSS #JavaScript
+## Tech Stack #
+Python 
+Django 
+HTML/CSS
+Bootstrap
+JavaScript
 
+## Hosted URL
 [CareerWise](http://susmitha03.pythonanywhere.com/) - Access the live version of the project.
 This project is hosted on PythonAnywhere.
 
+## Execution Video
 [Watch Project Execution Video](https://drive.google.com/file/d/12D_olUa7eOla7qUNCQxvDwrq7XAqMtge/view?usp=sharing)
-
-[Project Document](https://drive.google.com/file/d/1KoQbe6JVIeENiOPgOeGymzNKt9deGsOu/view)
+## Project Documentation
+[Document](https://drive.google.com/file/d/1KoQbe6JVIeENiOPgOeGymzNKt9deGsOu/view)
 
 For detailed instructions on how to install and run the project, please refer to the [guide](https://www.codewithharry.com/blogpost/django-cheatsheet/).
 
-Project Snapshots
+## Project Snapshots
 
 ![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/8b3f7ef9-522e-4d52-9804-236f2f1ecf3f)
 ![image](https://github.com/Susmitha-IT/CareerWise/assets/154817866/0c91f7df-62f0-4013-b15c-7fdd15d8754f)
